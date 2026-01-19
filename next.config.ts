@@ -1,7 +1,13 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  reactStrictMode: true,
+  experimental: {
+    // @ts-ignore-next-line
+    appDir: true, 
+  } as any,
+  // @ts-ignore-next-line
+  swcMinify: true, 
 };
 
 export default nextConfig;
