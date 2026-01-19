@@ -16,7 +16,7 @@ interface WorkspaceContextType {
 const WorkspaceContext = React.createContext<WorkspaceContextType | undefined>(undefined)
 
 export function WorkspaceProvider({ children }: { children: React.ReactNode }) {
-  const { user, isAuthenticated } = useAuth()
+  const { isAuthenticated } = useAuth()
   const [workspaces, setWorkspaces] = React.useState<Workspace[]>([])
   const [currentWorkspace, setCurrentWorkspace] = React.useState<Workspace | null>(null)
   const [loading, setLoading] = React.useState(true)

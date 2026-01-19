@@ -9,18 +9,25 @@ import {
   Settings, 
   CreditCard, 
   Bell, 
-  Search,
-  Menu,
   ChevronLeft,
   LogOut,
-  Command
+  Command,
+  LucideIcon
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Can, isAllowed } from "@/components/shared/rbac-guard"
+import { isAllowed } from "@/components/shared/rbac-guard"
 import { useWorkspace } from "@/components/providers/workspace-provider"
 import { cn } from "@/lib/utils"
+import { Role } from "@/lib/services/workspace-service"
 
-const navItems = [
+interface NavItem {
+  label: string
+  icon: LucideIcon
+  href: string
+  roles: Role[]
+}
+
+const navItems: NavItem[] = [
   { label: "Dashboard", icon: LayoutDashboard, href: "/", roles: ["Owner", "Admin", "Member"] },
   { label: "Team", icon: Users, href: "/team", roles: ["Owner", "Admin", "Member"] },
   { label: "Billing", icon: CreditCard, href: "/billing", roles: ["Owner", "Admin"] },
@@ -34,7 +41,7 @@ export function Sidebar() {
   const { currentWorkspace } = useWorkspace()
 
   const filteredNavItems = navItems.filter(item => 
-    isAllowed(currentWorkspace?.role, item.roles as any)
+    isAllowed(currentWorkspace?.role, item.roles)
   )
 
   return (

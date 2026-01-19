@@ -5,7 +5,7 @@ import { DashboardShell } from "@/components/layout/shell"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
-import { User, Shield, Bell, AppWindow, Trash2, Globe, Clock, Moon, Sun, Monitor, Lock, Smartphone } from "lucide-react"
+import { User, Shield, Bell, AppWindow, Trash2, Globe, Clock, Moon, Sun, Monitor, Lock, Smartphone, LucideIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useTheme } from "next-themes"
 import { useSearchParams } from "next/navigation"
@@ -15,7 +15,7 @@ import { Can } from "@/components/shared/rbac-guard"
 import { useWorkspace } from "@/components/providers/workspace-provider"
 import WorkspaceSettingsPage from "./workspace/page"
 
-export default function SettingsPage() {
+function SettingsContent() {
   const searchParams = useSearchParams()
   const tabParam = searchParams.get("tab")
   const { currentWorkspace } = useWorkspace()
@@ -36,14 +36,6 @@ export default function SettingsPage() {
     }
     fetchProfile()
   }, [])
-
-  if (!mounted || loading) return (
-    <DashboardShell>
-      <div className="flex items-center justify-center min-h-[400px]">
-        <div className="animate-pulse text-muted-foreground font-medium">Loading settings...</div>
-      </div>
-    </DashboardShell>
-  )
 
   const handleUpdateProfile = async () => {
     if (!profile) return
@@ -70,6 +62,15 @@ export default function SettingsPage() {
       setSaving(false)
     }
   }
+
+  if (!mounted || loading) return (
+    <DashboardShell>
+      <div className="flex items-center justify-center min-h-[400px]">
+        <div className="animate-pulse text-muted-foreground font-medium">Loading settings...</div>
+      </div>
+    </DashboardShell>
+  )
+
   return (
     <DashboardShell>
       <div className="flex flex-col gap-8">
@@ -329,7 +330,21 @@ export default function SettingsPage() {
   )
 }
 
-function SettingsNavItem({ icon: Icon, label, active, onClick }: { icon: any, label: string, active: boolean, onClick: () => void }) {
+export default function SettingsPage() {
+  return (
+    <React.Suspense fallback={
+       <DashboardShell>
+         <div className="flex items-center justify-center min-h-[400px]">
+           <div className="animate-pulse text-muted-foreground font-medium">Loading settings...</div>
+         </div>
+       </DashboardShell>
+    }>
+      <SettingsContent />
+    </React.Suspense>
+  )
+}
+
+function SettingsNavItem({ icon: Icon, label, active, onClick }: { icon: LucideIcon, label: string, active: boolean, onClick: () => void }) {
   return (
     <button
       onClick={onClick}
@@ -346,7 +361,7 @@ function SettingsNavItem({ icon: Icon, label, active, onClick }: { icon: any, la
   )
 }
 
-function ThemeCard({ icon: Icon, label, active = false, onClick }: { icon: any, label: string, active?: boolean, onClick: () => void }) {
+function ThemeCard({ icon: Icon, label, active = false, onClick }: { icon: LucideIcon, label: string, active?: boolean, onClick: () => void }) {
   return (
     <div 
       onClick={onClick}
@@ -360,4 +375,3 @@ function ThemeCard({ icon: Icon, label, active = false, onClick }: { icon: any, 
     </div>
   )
 }
-

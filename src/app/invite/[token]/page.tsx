@@ -1,13 +1,12 @@
 "use client"
 
 import * as React from "react"
-import { useParams, useRouter } from "next/navigation"
+import { useRouter } from "next/navigation"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Building, CheckCircle2, UserPlus, Loader2 } from "lucide-react"
+import { Building, CheckCircle2, Loader2 } from "lucide-react"
 
 export default function InviteAcceptancePage() {
-  const params = useParams()
   const router = useRouter()
   const [status, setStatus] = React.useState<'loading' | 'pending' | 'accepted'>('pending')
 
@@ -53,12 +52,12 @@ export default function InviteAcceptancePage() {
           </div>
           <CardTitle className="text-2xl font-bold">Join Acme Corp</CardTitle>
           <CardDescription>
-            You've been invited to join the <span className="text-foreground font-bold italic">Acme Corp</span> workspace on Team Control.
+            You&apos;ve been invited to join the <span className="text-foreground font-bold italic">Acme Corp</span> workspace on Team Control.
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6 pt-6 text-center">
           <div className="p-4 rounded-xl bg-muted/50 border border-border/50 text-sm text-muted-foreground">
-            As a <span className="text-primary font-bold">Member</span>, you'll be able to view and edit workspace projects and collaborate with your team.
+            As a <span className="text-primary font-bold">Member</span>, you&apos;ll be able to view and edit workspace projects and collaborate with your team.
           </div>
         </CardContent>
         <CardFooter className="flex flex-col gap-3 p-6 pt-0">

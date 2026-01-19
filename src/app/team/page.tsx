@@ -8,9 +8,11 @@ import { Search, Plus, MoreHorizontal, Mail, Shield, UserMinus, ShieldAlert } fr
 import * as React from "react"
 import { useWorkspace } from "@/components/providers/workspace-provider"
 import { teamService, TeamMember } from "@/lib/services/team-service"
+import { Role } from "@/lib/services/workspace-service"
 import { Can } from "@/components/shared/rbac-guard"
 import { cn } from "@/lib/utils"
 import { InviteMemberDialog } from "@/components/team/invite-member-dialog"
+import Image from "next/image"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -48,7 +50,7 @@ export default function TeamPage() {
     fetchMembers()
   }
 
-  const handleChangeRole = async (memberId: string, role: any) => {
+  const handleChangeRole = async (memberId: string, role: Role) => {
     if (!currentWorkspace) return
     await teamService.updateMemberRole(currentWorkspace.id, memberId, role)
     fetchMembers()
@@ -127,7 +129,19 @@ export default function TeamPage() {
                       <td className="py-5 px-2">
                         <div className="flex items-center gap-4">
                           <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-primary to-primary/60 text-white flex items-center justify-center font-bold shadow-md">
-                            {member.avatar ? <img src={member.avatar} alt="" /> : member.name.substring(0, 2).toUpperCase()}
+                            {member.avatar ? (
+                              <div className="relative h-10 w-10 overflow-hidden rounded-xl">
+                                <Image 
+                                  src={member.avatar} 
+                                  alt={member.name} 
+                                  fill
+                                  className="object-cover"
+                                  unoptimized
+                                />
+                              </div>
+                            ) : (
+                              member.name.substring(0, 2).toUpperCase()
+                            )}
                           </div>
                           <div className="flex flex-col">
                             <span className="font-bold text-foreground text-sm">{member.name}</span>

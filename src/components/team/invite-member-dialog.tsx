@@ -40,7 +40,7 @@ export function InviteMemberDialog({ open, onOpenChange, onSuccess }: InviteMemb
       onOpenChange(false)
       setEmail("")
       setRole("Member")
-    } catch (error) {
+    } catch {
       alert("Failed to send invite")
     } finally {
       setLoading(false)

@@ -42,7 +42,7 @@ export default function WorkspaceSettingsPage() {
       <div className="flex flex-col gap-8 max-w-4xl">
         <div>
           <h1 className="text-3xl font-bold tracking-tight text-gradient">Workspace Settings</h1>
-          <p className="text-muted-foreground">Manage your organization's core identity and administrative settings.</p>
+          <p className="text-muted-foreground">Manage your organization&apos;s core identity and administrative settings.</p>
         </div>
 
         <div className="grid gap-6">

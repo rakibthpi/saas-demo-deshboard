@@ -1,7 +1,8 @@
 "use client"
 
 import * as React from "react"
-import { ChevronsUpDown, Plus, Building, Check } from "lucide-react"
+import { ChevronsUpDown, Plus, Check } from "lucide-react"
+import Image from "next/image"
 import { useWorkspace } from "@/components/providers/workspace-provider"
 import { Button } from "@/components/ui/button"
 import {
@@ -29,7 +30,13 @@ export function TeamSwitcher() {
         >
           <div className="flex h-6 w-6 items-center justify-center rounded bg-primary/10 text-primary font-bold text-xs">
             {currentWorkspace.logo ? (
-              <img src={currentWorkspace.logo} alt={currentWorkspace.name} className="h-full w-full rounded object-cover" />
+              <Image 
+                src={currentWorkspace.logo} 
+                alt={currentWorkspace.name} 
+                fill
+                className="rounded object-cover"
+                unoptimized
+              />
             ) : (
               currentWorkspace.name.substring(0, 2).toUpperCase()
             )}

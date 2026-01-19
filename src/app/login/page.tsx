@@ -23,9 +23,10 @@ export default function LoginPage() {
     try {
       await login(email, password)
       toast("Logged in as Demo User", "success")
-    } catch (err: any) {
-      setError(err.message || "Something went wrong")
-      toast(err.message || "Login failed", "error")
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "Something went wrong"
+      setError(message)
+      toast(message || "Login failed", "error")
     }
   }
 

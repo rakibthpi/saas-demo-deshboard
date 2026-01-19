@@ -9,7 +9,8 @@ import {
   Users, 
   DollarSign, 
   Activity, 
-  CreditCard 
+  CreditCard,
+  LucideIcon
 } from "lucide-react"
 import { 
   Area, 
@@ -18,14 +19,13 @@ import {
   Tooltip, 
   XAxis, 
   YAxis,
-  Bar,
   BarChart,
   CartesianGrid
 } from "recharts"
 import * as React from "react"
 import { analyticsService, StatData, ChartData, SaleData } from "@/lib/services/analytics-service"
 
-const iconMap: Record<string, any> = {
+const iconMap: Record<string, LucideIcon> = {
   "dollar": DollarSign,
   "users": Users,
   "credit-card": CreditCard,
@@ -159,7 +159,15 @@ export default function DashboardPage() {
   )
 }
 
-function StatCard({ title, value, icon: Icon, trend, trendType }: any) {
+interface StatCardProps {
+  title: string
+  value: string | number
+  icon: LucideIcon
+  trend: string
+  trendType: "up" | "down" | "neutral"
+}
+
+function StatCard({ title, value, icon: Icon, trend, trendType }: StatCardProps) {
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
